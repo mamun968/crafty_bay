@@ -21,7 +21,7 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final TextEditingController _otpTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  int _remainingTime = 15;
+  int _remainingTime = 30;
   bool _isTimerActive = true;
   @override
   void initState() {

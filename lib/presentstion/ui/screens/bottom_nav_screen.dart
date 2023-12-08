@@ -5,6 +5,7 @@ import 'package:craftybay_app/presentstion/ui/screens/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../state_holders/home_slider_controller.dart';
 import '../../utility/app_colors.dart';
 import 'home_screen.dart';
 
@@ -24,6 +25,13 @@ class BottomNavScreenState extends State<BottomNavScreen> {
     CartScreen(),
     WishListScreen(),
   ];
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<HomeSlidersController>().getHomeSliders();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

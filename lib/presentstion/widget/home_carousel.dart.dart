@@ -5,7 +5,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../utility/app_colors.dart';
 
 class HomeCarousel extends StatefulWidget {
-  const HomeCarousel({super.key});
+  final List sliders;
+  const HomeCarousel({super.key, required this.sliders});
 
   @override
   State<HomeCarousel> createState() => _ProductCarouselState();
@@ -31,19 +32,30 @@ class _ProductCarouselState extends State<HomeCarousel> {
               activeSlider = index;
             }),
           ),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: widget.sliders.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                    decoration: const BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(fontSize: 16.0),
-                    ));
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryColor.withOpacity(0.2),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8))),
+                    child: Stack(children: [
+                      Image.network(i.image ?? ''),
+                      Positioned(
+                        bottom: 8,
+                        right: 20,
+                        child: Text(
+                          i.title ?? '',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
+                        ),
+                      )
+                    ]));
               },
             );
           }).toList(),

@@ -1,3 +1,4 @@
+import 'package:craftybay_app/presentstion/state_holders/home_slider_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
 import 'package:craftybay_app/presentstion/widget/home_carousel.dart.dart';
 import 'package:craftybay_app/presentstion/widget/sectionHeader.dart';
@@ -71,7 +72,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                const HomeCarousel(),
+                GetBuilder<HomeSlidersController>(
+                    builder: (homeSliderController) {
+                  if (homeSliderController.getHomeSlidersInProgress) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return HomeCarousel(
+                    sliders: homeSliderController.sliderModel.data ?? [],
+                  );
+                }),
                 const SizedBox(
                   height: 8,
                 ),

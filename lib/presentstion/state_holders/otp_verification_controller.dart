@@ -1,3 +1,4 @@
+import 'package:craftybay_app/presentstion/state_holders/auth_controller.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../data/model/network_response.dart';
@@ -20,7 +21,7 @@ class OtpVerificationController extends GetxController {
     _otpVerificationInProgress = false;
     update();
     if (response.isSuccess) {
-      _message = response.responseJson?['data'] ?? '';
+      await AuthController.setAccessToken( response.responseJson?['data']);
       return true;
     } else {
       return false;
