@@ -1,3 +1,4 @@
+import 'package:craftybay_app/presentstion/state_holders/catagory_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/home_slider_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
 import 'package:craftybay_app/presentstion/widget/home_carousel.dart.dart';
@@ -96,11 +97,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(
                   height: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) =>
-                          const CategoryCard()),
+                  child: GetBuilder<CategoryController>(
+                      builder: (categoryController) {
+                    if (categoryController.getCategoriesInProgress) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categoryController.categoryModel.data?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                             CategoryCard(
+                              categoryData:categoryController.categoryModel.data![index]
+                             ));
+                  }),
                 ),
                 SectionHeader(
                     title: 'Popular ',

@@ -45,7 +45,11 @@ class CatagoriesScreen extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       return const FittedBox(
-                        child: CategoryCard(),
+                        // child: CategoryCard(
+                        //   categoryData: (
+                            
+                        //   )
+                        // ),
                       );
                     }))),
       ),
