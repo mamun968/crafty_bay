@@ -1,5 +1,7 @@
 import 'package:craftybay_app/presentstion/state_holders/catagory_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/home_slider_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
 import 'package:craftybay_app/presentstion/widget/home_carousel.dart.dart';
 import 'package:craftybay_app/presentstion/widget/sectionHeader.dart';
@@ -106,11 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                     return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: categoryController.categoryModel.data?.length ?? 0,
+                        itemCount:
+                            categoryController.categoryModel.data?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) =>
-                             CategoryCard(
-                              categoryData:categoryController.categoryModel.data![index]
-                             ));
+                            CategoryCard(
+                                categoryData: categoryController
+                                    .categoryModel.data![index]));
                   }),
                 ),
                 SectionHeader(
@@ -118,43 +121,63 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Get.to(const ProductListScreen());
                     }),
-                SizedBox(
-                    height: 175,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) =>
-                          const ProductCard(),
-                    )),
+                GetBuilder<PopularProductController>(builder: (popularProduct) {
+                  if (popularProduct.getPopularProductInProgress) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return SizedBox(
+                      height: 175,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            popularProduct.popularProductModel.data?.length ??
+                                0,
+                        itemBuilder: (BuildContext context, int index) =>
+                            ProductCard(
+                                product: popularProduct
+                                    .popularProductModel.data![index]),
+                      ));
+                }),
                 SectionHeader(
                     title: "Special ",
                     onTap: () {
                       Get.to(const ProductListScreen());
                     }),
-                SizedBox(
-                    height: 175,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) =>
-                          const ProductCard(),
-                    )),
+                GetBuilder<SpecialProductController>(builder: (specialProduct) {
+                  if (specialProduct.getSpecialProductInProgress) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return SizedBox(
+                      height: 175,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: specialProduct.specialProductModel.data?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                        ProductCard(
+                                product: specialProduct
+                                    .specialProductModel.data![index]),
+                      ));
+                }),
                 SectionHeader(
                     title: 'New Arrivals',
                     onTap: () {
                       Get.to(const ProductListScreen());
                     }),
-                SizedBox(
-                    height: 175,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) =>
-                          const ProductCard(),
-                    )),
+                // SizedBox(
+                //     height: 175,
+                //     width: double.infinity,
+                //     child: ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: 10,
+                //       itemBuilder: (BuildContext context, int index) =>
+                //           const ProductCard(),
+                //     )),
               ],
             ),
           ),

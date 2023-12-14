@@ -1,3 +1,4 @@
+import 'package:craftybay_app/data/model/product.dart';
 import 'package:craftybay_app/presentstion/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -5,7 +6,8 @@ import 'package:get/route_manager.dart';
 import '../ui/screens/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+   final ProductData product;
+  const ProductCard({super.key, required this.product, });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class ProductCard extends StatelessWidget {
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: SizedBox(
-            width: 120,
+            width: 130,
             child: Column(
               children: [
                 Container(
@@ -28,55 +30,55 @@ class ProductCard extends StatelessWidget {
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8)),
                       color: AppColors.primaryColor.withOpacity(0.3),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/images/shoe.png',
+                      image:  DecorationImage(
+                        image: NetworkImage(
+                          product.image ?? '',
                         ),
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                 Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
                     Text(
-                      'Nike shoe AK50459049',
+                     product.title ?? '',
                       maxLines: 1,
-                      style: TextStyle(
+                      style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: Colors.blueGrey),
                     ),
-                    SizedBox(height: 2),
-                    Row(
+                    const SizedBox(height: 2),
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '₹ 500',
-                          style: TextStyle(
+                         '\$${product.price ?? 0}',
+                          style: const TextStyle(
                               fontSize: 13,
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.w500),
                         ),
-                        Wrap(
+                         Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.star,
                               size: 15,
                               color: Colors.amber,
                             ),
                             Text(
-                              '4.5',
-                              style: TextStyle(
+                              '\$${product.star ?? 0}',
+                              style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.blueGrey),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 14,
                             ),
-                            Card(
+                            const Card(
                               color: AppColors.primaryColor,
                               child: Padding(
                                 padding: EdgeInsets.all(2.0),

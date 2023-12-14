@@ -1,4 +1,6 @@
 import 'package:craftybay_app/presentstion/state_holders/bottom_nav_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/catagories_screen.dart';
 import 'package:craftybay_app/presentstion/ui/screens/cart_screen.dart';
 import 'package:craftybay_app/presentstion/ui/screens/wish_list_screen.dart';
@@ -31,7 +33,10 @@ class BottomNavScreenState extends State<BottomNavScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.find<HomeSlidersController>().getHomeSliders();
       Get.find<CategoryController>().getCategories();
+      Get.find<PopularProductController>().getPopularProduct();
+      Get.find<SpecialProductController>().getSpecialProduct();
     });
+
     super.initState();
   }
 

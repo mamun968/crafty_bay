@@ -1,5 +1,7 @@
 import 'package:craftybay_app/presentstion/state_holders/bottom_nav_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/home_slider_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:get/get.dart';
 
 import '../presentstion/state_holders/catagory_controller.dart';
@@ -14,5 +16,8 @@ class StateHoldersBinders extends Bindings {
     Get.put(OtpVerificationController());
     Get.put(HomeSlidersController());
     Get.put(CategoryController());
+    Get.put(PopularProductController());
+    Get.put(SpecialProductController());
+
   }
 }
