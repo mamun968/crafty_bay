@@ -5,80 +5,87 @@ import 'package:craftybay_app/presentstion/widget/product_details_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../data/model/product_details.dart';
+import '../../state_holders/product_details_controller.dart';
 import '../../utility/app_colors.dart';
 import '../../widget/color_picker.dart';
 import '../../widget/size_picker.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  final int productId;
+  const ProductDetailsScreen({super.key, required this.productId});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  List<Color> colors = [
-    Colors.deepOrange,
-    Colors.amber,
-    Colors.blue,
-    Colors.yellow,
-    Colors.pink,
-    Colors.black,
-  ];
+  List<String> colors = [];
 
   int _selectedColorIndex = 0;
   final int _selectedSizeIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<ProductDetailsController>().getProductDetails(widget.productId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-            child: Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
+    return Scaffold(body: GetBuilder<ProductDetailsController>(
+        builder: (productDetailsController) {
+      if (productDetailsController.getProductDetailsInProgress) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      return SafeArea(
+          child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Column(
                   children: [
-                    const ProductDetailsSlider(),
-                    productDetailsAppBar
+                    Stack(
+                      children: [
+                        ProductDetailsSlider(
+                          imageList: [
+                            productDetailsController.productDetails.img1 ?? '',
+                            productDetailsController.productDetails.img2 ?? '',
+                            productDetailsController.productDetails.img3 ?? '',
+                            productDetailsController.productDetails.img4 ?? '',
+                          ],
+                        ),
+                        productDetailsAppBar
+                      ],
+                    ),
+                    productDetails(productDetailsController.productDetails,
+                        productDetailsController.availableColors),
                   ],
                 ),
-                productDetails,
-              ],
+              ),
             ),
           ),
-        ),
-        addPriceCart,
-      ],
-    )));
+          addToPriceCart,
+        ],
+      ));
+    }));
   }
 
-  AppBar get productDetailsAppBar {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: const Text(
-        "Product Details",
-        style: TextStyle(color: Colors.black26),
-      ),
-      leading: const BackButton(
-        color: Colors.black54,
-      ),
-    );
-  }
-
-  Padding get productDetails {
+  Padding productDetails(ProductDetails productDetails, List<String> colors) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            const Expanded(
-              child: Text("Adidas Originals NMD_R1 Men Shoes",
-                  style: TextStyle(
+            Expanded(
+              child: Text(productDetails.product?.title ?? '',
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.5)),
@@ -93,15 +100,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 })
           ]),
           Row(children: [
-            const Wrap(children: [
-              Icon(
+            Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
+              const Icon(
                 Icons.star,
                 size: 18,
                 color: Colors.amber,
               ),
               Text(
-                '4.5',
-                style: TextStyle(
+                '${productDetails.product?.star ?? 0}',
+                style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
                     color: Colors.blueGrey),
@@ -154,7 +161,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 28,
               child: SizePicker(
                 selectedSizeIndex: _selectedSizeIndex,
-                sizes: const ["S", "M", "L", "XL", "XXL", "XXXL"],
+                sizes: productDetails.size?.split(',') ?? [],
               )),
           const SizedBox(
             height: 16,
@@ -167,16 +174,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           const SizedBox(
             height: 12,
           ),
-          const Text(
-              "'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo "),
+          Text(
+            productDetails.des ?? '',
+          ),
         ],
       ),
     );
   }
 
-  Container get addPriceCart {
+  Container get addToPriceCart {
     return Container(
-      height: 80,
+      height: 85,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
           color: AppColors.primaryColor.withOpacity(0.1),
@@ -216,6 +224,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  AppBar get productDetailsAppBar {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: const Text(
+        "Product Details",
+        style: TextStyle(color: Colors.black26),
+      ),
+      leading: const BackButton(
+        color: Colors.black54,
       ),
     );
   }

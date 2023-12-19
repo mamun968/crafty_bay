@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../utility/color_extension.dart';
+
 class ColorPicker extends StatefulWidget {
-  final List<Color> colors;
+  final List<String> colors;
   final int selectedColorIndex;
   final Function(int) onColorSelected;
 
@@ -17,6 +19,8 @@ class ColorPicker extends StatefulWidget {
 }
 
 class ColorPickerState extends State<ColorPicker> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -31,7 +35,7 @@ class ColorPickerState extends State<ColorPicker> {
           },
           child: CircleAvatar(
             radius: 18,
-            backgroundColor: widget.colors[index],
+            backgroundColor: HexColor.fromHex(widget.colors[index]),
             child: widget.selectedColorIndex == index
                 ? const Icon(
                     Icons.done,

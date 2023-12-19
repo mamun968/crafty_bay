@@ -9,4 +9,5 @@ class Urls {
   static String getCatagory = '$_baseUrl/CategoryList';
   static String getProductByRemarks(String remark) =>
       '$_baseUrl/ListProductByRemark/$remark';
+  static String getProductDetails(int productId) => '$_baseUrl/ProductDetailsById/$productId';
 }

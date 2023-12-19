@@ -1,5 +1,6 @@
 import 'package:craftybay_app/presentstion/state_holders/catagory_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/home_slider_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/new_product_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
@@ -157,9 +158,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: double.infinity,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: specialProduct.specialProductModel.data?.length ?? 0,
+                        itemCount:
+                            specialProduct.specialProductModel.data?.length ??
+                                0,
                         itemBuilder: (BuildContext context, int index) =>
-                        ProductCard(
+                            ProductCard(
                                 product: specialProduct
                                     .specialProductModel.data![index]),
                       ));
@@ -169,15 +172,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Get.to(const ProductListScreen());
                     }),
-                // SizedBox(
-                //     height: 175,
-                //     width: double.infinity,
-                //     child: ListView.builder(
-                //       scrollDirection: Axis.horizontal,
-                //       itemCount: 10,
-                //       itemBuilder: (BuildContext context, int index) =>
-                //           const ProductCard(),
-                //     )),
+                GetBuilder<NewProductController>(builder: (newProduct) {
+                  return SizedBox(
+                      height: 175,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: newProduct.newProductModel.data?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                            ProductCard(
+                          product: newProduct.newProductModel.data![index],
+                        ),
+                      ));
+                }),
               ],
             ),
           ),

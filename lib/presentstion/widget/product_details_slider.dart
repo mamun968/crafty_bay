@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:craftybay_app/presentstion/utility/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsSlider extends StatefulWidget {
-  const ProductDetailsSlider({super.key});
+  final List<String> imageList;
+
+  const ProductDetailsSlider({super.key, required this.imageList});
 
   @override
   State<ProductDetailsSlider> createState() => _ProductDetailsSliderState();
@@ -24,15 +27,17 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
             activeSlider = index;
           }),
         ),
-        items: [1, 2, 3, 4].map((i) {
+        items: widget.imageList.map((i) {
           return Builder(
             builder: (BuildContext context) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 2.0),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                ),
+                    color: AppColors.primaryColor.withOpacity(0.05),
+                    image: DecorationImage(
+                      image: NetworkImage(i),
+                    )),
               );
             },
           );
@@ -45,8 +50,7 @@ class _ProductDetailsSliderState extends State<ProductDetailsSlider> {
         ),
         child: AnimatedSmoothIndicator(
           activeIndex: activeSlider,
-          count: 4,
-          
+          count: widget.imageList.length,
           onDotClicked: (index) {
             setState(() {
               activeSlider = index;

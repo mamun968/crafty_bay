@@ -1,4 +1,5 @@
 import 'package:craftybay_app/presentstion/state_holders/bottom_nav_controller.dart';
+import 'package:craftybay_app/presentstion/state_holders/new_product_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
 import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/catagories_screen.dart';
@@ -35,6 +36,7 @@ class BottomNavScreenState extends State<BottomNavScreen> {
       Get.find<CategoryController>().getCategories();
       Get.find<PopularProductController>().getPopularProduct();
       Get.find<SpecialProductController>().getSpecialProduct();
+      Get.find<NewProductController>().getNewProduct();
     });
 
     super.initState();

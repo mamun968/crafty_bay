@@ -8,7 +8,7 @@ import '../../data/utility/urls.dart';
 class SpecialProductController extends GetxController {
   bool _getSpecialProductInProgress = false;
    ProductModel _specialProductModel = ProductModel();
-  final String _message = '';
+   String _message = '';
   bool get getSpecialProductInProgress => _getSpecialProductInProgress;
 
   ProductModel get specialProductModel => _specialProductModel;
@@ -26,6 +26,8 @@ class SpecialProductController extends GetxController {
       update();
       return true;
     } else {
+       _message = 'Special product list data fetch failed!';
+      update();
       return false;
     }
   }
