@@ -5,6 +5,7 @@ import 'package:craftybay_app/presentstion/state_holders/popular_product_control
 import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:get/get.dart';
 
+import '../presentstion/state_holders/add_to_cart_controller.dart';
 import '../presentstion/state_holders/catagory_controller.dart';
 import '../presentstion/state_holders/email_verification_controller.dart';
 import '../presentstion/state_holders/otp_verification_controller.dart';
@@ -22,6 +23,7 @@ class StateHoldersBinders extends Bindings {
     Get.put(SpecialProductController());
     Get.put(NewProductController());
     Get.put(ProductDetailsController());
+    Get.put(AddToCartController());
 
 
 

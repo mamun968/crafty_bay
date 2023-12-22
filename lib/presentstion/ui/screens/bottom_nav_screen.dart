@@ -44,40 +44,40 @@ class BottomNavScreenState extends State<BottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BottomNavScreenController>(builder: (controller) {
+    return GetBuilder<BottomNavScreenController>(
+        builder: (bottomNavController) {
       return Scaffold(
-        body: _screens[controller.currentSelectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: controller.currentSelectedIndex,
-          onTap: controller.changeScreen,
-          selectedItemColor: AppColors.primaryColor,
-          unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
-          elevation: 4,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home_filled,
-                ),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.dashboard,
-                ),
-                label: 'Categories'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopping_cart,
-                ),
-                label: 'Cart'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite_border,
-                ),
-                label: 'Wishlist'),
-          ],
-        ),
-      );
+          body: _screens[bottomNavController.currentSelectedIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: bottomNavController.currentSelectedIndex,
+            onTap: bottomNavController.changeScreen,
+            selectedItemColor: AppColors.primaryColor,
+            unselectedItemColor: Colors.grey,
+            showUnselectedLabels: true,
+            elevation: 4,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home_filled,
+                  ),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.dashboard,
+                  ),
+                  label: 'Categories'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                  ),
+                  label: 'Cart'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.favorite_border,
+                  ),
+                  label: 'Wishlist'),
+            ],
+          ));
     });
   }
 }

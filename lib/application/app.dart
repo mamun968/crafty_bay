@@ -5,18 +5,15 @@ import 'package:craftybay_app/application/state_holders_binders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CraftyBay extends StatefulWidget {
-  const CraftyBay({super.key});
+class CraftyBay extends StatelessWidget {
+static  GlobalKey <NavigatorState> globalKey = GlobalKey<NavigatorState>();
+    const CraftyBay({Key? key}) : super(key: key);
 
-  @override
-  State<CraftyBay> createState() => _CraftyBayState();
-}
-
-class _CraftyBayState extends State<CraftyBay> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       home: const SplashScreen(),
+      navigatorKey: CraftyBay.globalKey,
       debugShowCheckedModeBanner: false,
       initialBinding: StateHoldersBinders(),
       theme: ThemeData(

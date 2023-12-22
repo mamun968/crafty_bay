@@ -14,13 +14,6 @@ class CatagoriesScreen extends StatefulWidget {
 
 class _CatagoriesScreenState extends State<CatagoriesScreen> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.find<CategoryController>().getCategories();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -47,31 +40,38 @@ class _CatagoriesScreenState extends State<CatagoriesScreen> {
                 ),
               ),
             ),
-            body: GetBuilder<CategoryController>(builder: (categoryController) {
-              if (categoryController.getCategoriesInProgress) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7),
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemCount:
-                          categoryController.categoryModel.data?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return FittedBox(
-                            child: CategoryCard(
-                                categoryData: categoryController
-                                    .categoryModel.data![index]));
-                      }));
-            })),
+            body: RefreshIndicator(
+              onRefresh: () async {
+                Get.find<CategoryController>().getCategories();
+                
+              },
+              child:
+                  GetBuilder<CategoryController>(builder: (categoryController) {
+                if (categoryController.getCategoriesInProgress) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 7),
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                        ),
+                        itemCount:
+                            categoryController.categoryModel.data?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return FittedBox(
+                              child: CategoryCard(
+                                  categoryData: categoryController
+                                      .categoryModel.data![index]));
+                        }));
+              }),
+            )),
       ),
     );
   }

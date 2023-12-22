@@ -10,21 +10,23 @@ class ProductDetailsController extends GetxController {
   bool _getProductDetailsInProgress = false;
   ProductDetails _productDetails = ProductDetails();
   String _errorMessage = '';
-  final List<String> _availableColors = [];
+   final List<String> _availableColors = [];
+   List<String> _availableSizes = [];
 
   bool get getProductDetailsInProgress => _getProductDetailsInProgress;
 
   ProductDetails get productDetails => _productDetails;
 
   List<String> get availableColors => _availableColors;
-
+  
+  List<String> get availableSizes => _availableSizes;
   String get errorMessage => _errorMessage;
 
   Future<bool> getProductDetails(int id) async {
     _getProductDetailsInProgress = true;
     update();
     final NetworkResponse response =
-        await NetworkCaller().getRequest(Urls.getProductDetails(id));
+        await NetworkCaller.getRequest(Urls.getProductDetails(id));
     _getProductDetailsInProgress = false;
     if (response.isSuccess) {
       _productDetails =
@@ -32,6 +34,8 @@ class ProductDetailsController extends GetxController {
               .data!
               .first;
       _convertStringToColor(_productDetails.color ?? '');
+      _convertStringToSizes(_productDetails.size ?? '');
+
       update();
       return true;
     } else {
@@ -49,5 +53,9 @@ class ProductDetailsController extends GetxController {
         _availableColors.add(c);
       }
     }
+  }
+
+  void _convertStringToSizes(String sizes) {
+    _availableSizes = sizes.split(',');
   }
 }

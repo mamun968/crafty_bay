@@ -173,6 +173,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.to(const ProductListScreen());
                     }),
                 GetBuilder<NewProductController>(builder: (newProduct) {
+                  if (newProduct.getNewProductInProgress) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   return SizedBox(
                       height: 175,
                       width: double.infinity,
