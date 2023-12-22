@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/model/product_details.dart';
+import '../../state_holders/add_to_cart_controller.dart';
 import '../../state_holders/product_details_controller.dart';
 import '../../utility/app_colors.dart';
+import '../../utility/color_extension.dart';
 import '../../widget/color_picker.dart';
 import '../../widget/size_picker.dart';
 
@@ -20,10 +22,8 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  List<String> colors = [];
-
   int _selectedColorIndex = 0;
-  final int _selectedSizeIndex = 0;
+  int _selectedSizeIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -63,14 +63,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         productDetailsAppBar
                       ],
                     ),
-                    productDetails(productDetailsController.productDetails,
-                        productDetailsController.availableColors),
+                    productDetails(
+                      productDetailsController.productDetails,
+                      productDetailsController.availableColors,
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          addToPriceCart,
+          addToPriceCart(
+              productDetailsController.productDetails,
+              productDetailsController.availableColors,
+              productDetailsController.availableSizes),
         ],
       ));
     }));
@@ -160,7 +165,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
               height: 28,
               child: SizePicker(
-                selectedSizeIndex: _selectedSizeIndex,
+                initialSelected: 0,
+                onSelected: (int selectedSize) {
+                  _selectedSizeIndex = selectedSize;
+                },
                 sizes: productDetails.size?.split(',') ?? [],
               )),
           const SizedBox(
@@ -182,7 +190,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container get addToPriceCart {
+  Container addToPriceCart(
+      ProductDetails details, List<String> colors, List<String> sizes) {
     return Container(
       height: 85,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -217,12 +226,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              'Add To Cart',
-            ),
-          )
+          GetBuilder<AddToCartController>(builder: (addToCartController) {
+            if (addToCartController.isAddToCartInProgress) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ElevatedButton(
+              onPressed: () async {
+                final result = await addToCartController.addToACart(
+                    details.id!,
+                    colors[_selectedColorIndex].toString(),
+                    sizes[_selectedSizeIndex]);
+                if (result) {
+                  Get.snackbar(
+                    "Success",
+                    'Added to cart successfully',
+                    snackPosition: SnackPosition.TOP,
+                  );
+                } else {
+                  Get.snackbar(
+                    addToCartController.message,
+                    "",
+                    snackPosition: SnackPosition.TOP,
+                  );
+                }
+              },
+              child: const Text(
+                'Add To Cart',
+              ),
+            );
+          })
         ],
       ),
     );
