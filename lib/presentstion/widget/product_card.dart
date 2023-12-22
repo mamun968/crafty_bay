@@ -6,14 +6,18 @@ import 'package:get/route_manager.dart';
 import '../ui/screens/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
-   final ProductData product;
-  const ProductCard({super.key, required this.product, });
+  final ProductData product;
+  const ProductCard({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to( ProductDetailsScreen(productId:product.id!),transition: Transition.rightToLeft);
+        Get.to(ProductDetailsScreen(productId: product.id!),
+            transition: Transition.fadeIn);
       },
       child: Card(
           shadowColor: AppColors.primaryColor.withOpacity(0.1),
@@ -30,17 +34,17 @@ class ProductCard extends StatelessWidget {
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8)),
                       color: AppColors.primaryColor.withOpacity(0.3),
-                      image:  DecorationImage(
+                      image: DecorationImage(
                         image: NetworkImage(
                           product.image ?? '',
                         ),
                       )),
                 ),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
                     Text(
-                     product.title ?? '',
+                      product.title ?? '',
                       maxLines: 1,
                       style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
@@ -49,17 +53,17 @@ class ProductCard extends StatelessWidget {
                           color: Colors.blueGrey),
                     ),
                     const SizedBox(height: 2),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                         '\$${product.price ?? 0}',
+                          '\$${product.price ?? 0}',
                           style: const TextStyle(
                               fontSize: 13,
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.w500),
                         ),
-                         Wrap(
+                        Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             const Icon(

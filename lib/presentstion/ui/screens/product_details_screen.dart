@@ -9,7 +9,6 @@ import '../../../data/model/product_details.dart';
 import '../../state_holders/add_to_cart_controller.dart';
 import '../../state_holders/product_details_controller.dart';
 import '../../utility/app_colors.dart';
-import '../../utility/color_extension.dart';
 import '../../widget/color_picker.dart';
 import '../../widget/size_picker.dart';
 
@@ -23,7 +22,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _selectedColorIndex = 0;
-  int _selectedSizeIndex = 0;
+  int _selectedSizeIndex = 2;
   @override
   void initState() {
     super.initState();
@@ -165,8 +164,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
               height: 28,
               child: SizePicker(
-                initialSelected: 0,
-                onSelected: (int selectedSize) {
+                selectedSizeIndex: _selectedSizeIndex,
+                onSizeSelected: (int selectedSize) {
                   _selectedSizeIndex = selectedSize;
                 },
                 sizes: productDetails.size?.split(',') ?? [],

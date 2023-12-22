@@ -6,25 +6,21 @@ class SizePicker extends StatefulWidget {
   const SizePicker(
       {super.key,
       required this.sizes,
-      required this.onSelected,
-      required this.initialSelected});
+      required this.onSizeSelected,
+      required this.selectedSizeIndex});
 
   final List<String> sizes;
-  final Function(int selectIndex) onSelected;
-  final int initialSelected;
+  final Function(int selectIndex) onSizeSelected;
+  final int selectedSizeIndex;
 
   @override
   State<SizePicker> createState() => _SizePickerState();
 }
 
 class _SizePickerState extends State<SizePicker> {
-  int _selectedSizeIndex = 0;
+  
 
-  @override
-  void initState() {
-    _selectedSizeIndex = widget.initialSelected;
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +31,7 @@ class _SizePickerState extends State<SizePicker> {
         return InkWell(
           borderRadius: BorderRadius.circular(4),
           onTap: () {
-            _selectedSizeIndex = index;
-            widget.onSelected(index);
+            widget.onSizeSelected(index);
             if (mounted) {
               setState(() {});
             }
@@ -46,7 +41,7 @@ class _SizePickerState extends State<SizePicker> {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(4),
-                color: _selectedSizeIndex == index
+                color: widget.selectedSizeIndex == index
                     ? AppColors.primaryColor
                     : null),
             alignment: Alignment.center,
