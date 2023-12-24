@@ -1,8 +1,10 @@
+import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../state_holders/bottom_nav_controller.dart';
 import '../../state_holders/catagory_controller.dart';
+import '../../state_holders/product_list_controller.dart';
 import '../../widget/catagory_card.dart';
 
 class CatagoriesScreen extends StatefulWidget {
@@ -43,7 +45,6 @@ class _CatagoriesScreenState extends State<CatagoriesScreen> {
             body: RefreshIndicator(
               onRefresh: () async {
                 Get.find<CategoryController>().getCategories();
-                
               },
               child:
                   GetBuilder<CategoryController>(builder: (categoryController) {
@@ -67,6 +68,14 @@ class _CatagoriesScreenState extends State<CatagoriesScreen> {
                         itemBuilder: (context, index) {
                           return FittedBox(
                               child: CategoryCard(
+                                  onTap: () {
+                                    Get.to(
+                                        ProductListScreen(
+                                          categoryId: categoryController
+                                              .categoryModel.data![index].id!,
+                                        ),
+                                        transition: Transition.cupertinoDialog);
+                                  },
                                   categoryData: categoryController
                                       .categoryModel.data![index]));
                         }));

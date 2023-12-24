@@ -10,6 +10,7 @@ import '../presentstion/state_holders/catagory_controller.dart';
 import '../presentstion/state_holders/email_verification_controller.dart';
 import '../presentstion/state_holders/otp_verification_controller.dart';
 import '../presentstion/state_holders/product_details_controller.dart';
+import '../presentstion/state_holders/product_list_controller.dart';
 
 class StateHoldersBinders extends Bindings {
   @override
@@ -24,6 +25,7 @@ class StateHoldersBinders extends Bindings {
     Get.put(NewProductController());
     Get.put(ProductDetailsController());
     Get.put(AddToCartController());
+    Get.put(ProductListController());
 
 
 

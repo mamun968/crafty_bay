@@ -45,29 +45,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        ProductDetailsSlider(
-                          imageList: [
-                            productDetailsController.productDetails.img1 ?? '',
-                            productDetailsController.productDetails.img2 ?? '',
-                            productDetailsController.productDetails.img3 ?? '',
-                            productDetailsController.productDetails.img4 ?? '',
-                          ],
-                        ),
-                        productDetailsAppBar
-                      ],
-                    ),
-                    productDetails(
-                      productDetailsController.productDetails,
-                      productDetailsController.availableColors,
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      ProductDetailsSlider(
+                        imageList: [
+                          productDetailsController.productDetails.img1 ?? '',
+                          productDetailsController.productDetails.img2 ?? '',
+                          productDetailsController.productDetails.img3 ?? '',
+                          productDetailsController.productDetails.img4 ?? '',
+                        ],
+                      ),
+                      productDetailsAppBar
+                    ],
+                  ),
+                  productDetails(
+                    productDetailsController.productDetails,
+                    productDetailsController.availableColors,
+                  ),
+                ],
               ),
             ),
           ),
@@ -165,8 +162,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 28,
               child: SizePicker(
                 selectedSizeIndex: _selectedSizeIndex,
-                onSizeSelected: (int selectedSize) {
-                  _selectedSizeIndex = selectedSize;
+                onSizeSelected: (int index) {
+                  _selectedSizeIndex = index;
+                  setState(() {});
                 },
                 sizes: productDetails.size?.split(',') ?? [],
               )),

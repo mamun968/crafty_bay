@@ -18,10 +18,6 @@ class SizePicker extends StatefulWidget {
 }
 
 class _SizePickerState extends State<SizePicker> {
-  
-
-  
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -32,9 +28,6 @@ class _SizePickerState extends State<SizePicker> {
           borderRadius: BorderRadius.circular(4),
           onTap: () {
             widget.onSizeSelected(index);
-            if (mounted) {
-              setState(() {});
-            }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8),

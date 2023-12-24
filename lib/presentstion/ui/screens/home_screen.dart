@@ -5,7 +5,6 @@ import 'package:craftybay_app/presentstion/state_holders/popular_product_control
 import 'package:craftybay_app/presentstion/state_holders/special_product_controller.dart';
 import 'package:craftybay_app/presentstion/ui/screens/product_list_screen.dart';
 import 'package:craftybay_app/presentstion/widget/home_carousel.dart.dart';
-import 'package:craftybay_app/presentstion/widget/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ import '../../state_holders/bottom_nav_controller.dart';
 import '../../widget/appBarIcon.dart';
 import '../../widget/catagory_card.dart';
 import '../../widget/product_card.dart';
+import '../../widget/section_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -113,6 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             categoryController.categoryModel.data?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) =>
                             CategoryCard(
+                                onTap: () {
+                                  Get.to(ProductListScreen(
+                                    categoryId: categoryController
+                                        .categoryModel.data![index].id!,
+                                  ));
+                                },
                                 categoryData: categoryController
                                     .categoryModel.data![index]));
                   }),
@@ -120,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SectionHeader(
                     title: 'Popular ',
                     onTap: () {
-                      Get.to(const ProductListScreen());
+                      // Get.to(const ProductListScreen());
                     }),
                 GetBuilder<PopularProductController>(builder: (popularProduct) {
                   if (popularProduct.getPopularProductInProgress) {
@@ -145,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SectionHeader(
                     title: "Special ",
                     onTap: () {
-                      Get.to(const ProductListScreen());
+                      // Get.to(const ProductListScreen());
                     }),
                 GetBuilder<SpecialProductController>(builder: (specialProduct) {
                   if (specialProduct.getSpecialProductInProgress) {
@@ -170,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SectionHeader(
                     title: 'New Arrivals',
                     onTap: () {
-                      Get.to(const ProductListScreen());
+                      // Get.to(const ProductListScreen());
                     }),
                 GetBuilder<NewProductController>(builder: (newProduct) {
                   if (newProduct.getNewProductInProgress) {
