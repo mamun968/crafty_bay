@@ -16,8 +16,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailsScreen(productId: product.id!),
-            transition: Transition.fadeIn);
+        Get.to(ProductDetailsScreen(productId: product.id !),
+            transition: Transition.cupertinoDialog);
       },
       child: Card(
           shadowColor: AppColors.primaryColor.withOpacity(0.1),
@@ -37,7 +37,9 @@ class ProductCard extends StatelessWidget {
                       image: DecorationImage(
                         image: NetworkImage(
                           product.image ?? '',
-                        ),
+                          
+                        ), 
+                        
                       )),
                 ),
                 Padding(

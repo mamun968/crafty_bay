@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../state_holders/bottom_nav_controller.dart';
 import '../../state_holders/catagory_controller.dart';
-import '../../state_holders/product_list_controller.dart';
 import '../../widget/catagory_card.dart';
 
 class CatagoriesScreen extends StatefulWidget {
@@ -71,6 +70,7 @@ class _CatagoriesScreenState extends State<CatagoriesScreen> {
                                   onTap: () {
                                     Get.to(
                                         ProductListScreen(
+                                          
                                           categoryId: categoryController
                                               .categoryModel.data![index].id!,
                                         ),

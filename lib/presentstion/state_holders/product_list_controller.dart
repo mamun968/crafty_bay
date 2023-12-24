@@ -33,5 +33,8 @@ class ProductListController extends GetxController {
     }
   }
 
-  void getProductsByCategory(int categoryId) {}
+  void setProducts(ProductModel productModel) {
+    _productModel = productModel;
+    update();
+  }
 }
