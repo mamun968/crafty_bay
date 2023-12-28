@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 
 class CraftyBay extends StatelessWidget {
 static  GlobalKey <NavigatorState> globalKey = GlobalKey<NavigatorState>();
-    const CraftyBay({Key? key}) : super(key: key);
-
+     const CraftyBay({Key? key}) : super(key: key);
+   
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

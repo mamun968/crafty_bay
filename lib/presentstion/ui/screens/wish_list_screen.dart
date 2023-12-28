@@ -1,3 +1,4 @@
+import 'package:craftybay_app/presentstion/state_holders/popular_product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,16 +34,22 @@ class _WishListScreenState extends State<WishListScreen> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 6),
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 16,
+                  crossAxisCount: 2,
                   mainAxisSpacing: 16,
                 ),
+                itemCount: Get.find<PopularProductController>()
+                    .popularProductModel
+                    .data!
+                    .length,
                 itemBuilder: (context, index) {
-                  return const FittedBox(
-                    // child: ProductCard(),
+                  return FittedBox(
+                    child: ProductCard(
+                        product: Get.find<PopularProductController>()
+                            .popularProductModel
+                            .data![index]),
                   );
                 }),
           ),

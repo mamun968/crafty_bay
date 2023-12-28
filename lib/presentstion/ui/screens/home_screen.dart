@@ -10,7 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../state_holders/bottom_nav_controller.dart';
-import '../../widget/appBarIcon.dart';
+import '../../widget/app_bar_icon.dart';
 import '../../widget/catagory_card.dart';
 import '../../widget/product_card.dart';
 import '../../widget/section_header.dart';
@@ -115,9 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             CategoryCard(
                                 onTap: () {
                                   Get.to(ProductListScreen(
-                                    categoryId: categoryController
-                                        .categoryModel.data![index].id!,
-                                  ));
+                                      categoryId: categoryController
+                                          .categoryModel.data![index].id!,
+                                      title: categoryController.categoryModel
+                                          .data![index].categoryName!));
                                 },
                                 categoryData: categoryController
                                     .categoryModel.data![index]));
@@ -128,7 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Get.to(Get.to(ProductListScreen(
                           productModel: Get.find<PopularProductController>()
-                              .popularProductModel)));
+                              .popularProductModel,
+                          title: "Popular Products")));
                     }),
                 GetBuilder<PopularProductController>(
                     builder: (popularProductController) {
@@ -154,9 +156,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 SectionHeader(
                     title: "Special ",
                     onTap: () {
-                      Get.to(Get.to(ProductListScreen(
-                          productModel: Get.find<SpecialProductController>()
-                              .specialProductModel)));
+                      Get.to((ProductListScreen(
+                        productModel: Get.find<SpecialProductController>()
+                            .specialProductModel,
+                        title: "Special Products",
+                      )));
                     }),
                 GetBuilder<SpecialProductController>(
                     builder: (specialProductController) {
@@ -183,8 +187,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: 'New Arrivals',
                     onTap: () {
                       Get.to(ProductListScreen(
-                          productModel: Get.find<NewProductController>()
-                              .newProductModel));
+                        productModel:
+                            Get.find<NewProductController>().newProductModel,
+                        title: 'New Arrivals',
+                      ));
                     }),
                 GetBuilder<NewProductController>(
                     builder: (newProductController) {

@@ -1,11 +1,12 @@
 import 'package:craftybay_app/data/model/product.dart';
 import 'package:craftybay_app/presentstion/utility/app_colors.dart';
+import 'package:craftybay_app/presentstion/widget/favourite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 import '../ui/screens/product_details_screen.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final ProductData product;
   const ProductCard({
     super.key,
@@ -13,10 +14,17 @@ class ProductCard extends StatelessWidget {
   });
 
   @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isLoved = false;
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ProductDetailsScreen(productId: product.id !),
+        Get.to(ProductDetailsScreen(productId: widget.product.id!),
             transition: Transition.cupertinoDialog);
       },
       child: Card(
@@ -36,17 +44,15 @@ class ProductCard extends StatelessWidget {
                       color: AppColors.primaryColor.withOpacity(0.3),
                       image: DecorationImage(
                         image: NetworkImage(
-                          product.image ?? '',
-                          
-                        ), 
-                        
+                          widget.product.image ?? '',
+                        ),
                       )),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
                     Text(
-                      product.title ?? '',
+                      widget.product.title ?? '',
                       maxLines: 1,
                       style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
@@ -59,7 +65,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '\$${product.price ?? 0}',
+                          '\$${widget.product.price ?? 0}',
                           style: const TextStyle(
                               fontSize: 13,
                               color: AppColors.primaryColor,
@@ -74,7 +80,7 @@ class ProductCard extends StatelessWidget {
                               color: Colors.amber,
                             ),
                             Text(
-                              '\$${product.star ?? 0}',
+                              '\$${widget.product.star ?? 0}',
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: 12,
@@ -84,17 +90,7 @@ class ProductCard extends StatelessWidget {
                             const SizedBox(
                               width: 14,
                             ),
-                            const Card(
-                              color: AppColors.primaryColor,
-                              child: Padding(
-                                padding: EdgeInsets.all(2.0),
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
+                            const FavoriteButton()
                           ],
                         ),
                       ],

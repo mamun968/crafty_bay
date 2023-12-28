@@ -70,10 +70,9 @@ class _CatagoriesScreenState extends State<CatagoriesScreen> {
                                   onTap: () {
                                     Get.to(
                                         ProductListScreen(
-                                          
-                                          categoryId: categoryController
-                                              .categoryModel.data![index].id!,
-                                        ),
+                                            categoryId: categoryController
+                                                .categoryModel.data![index].id!,
+                                            title: categoryController.categoryModel.data![index].categoryName!),
                                         transition: Transition.cupertinoDialog);
                                   },
                                   categoryData: categoryController

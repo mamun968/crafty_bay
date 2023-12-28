@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../state_holders/bottom_nav_controller.dart';
 import '../../utility/app_colors.dart';

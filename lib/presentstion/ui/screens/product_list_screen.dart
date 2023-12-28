@@ -8,7 +8,8 @@ import '../../widget/product_card.dart';
 class ProductListScreen extends StatefulWidget {
   final int? categoryId;
   final ProductModel? productModel;
-  const ProductListScreen({super.key,  this.categoryId,  this.productModel});
+  final String title;
+  const ProductListScreen({super.key, this.categoryId, this.productModel, required this.title});
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -18,15 +19,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if(widget.categoryId!=null){
+      if (widget.categoryId != null) {
         Get.find<ProductListController>()
-          .getProductListByCategory(widget.categoryId!);
+            .getProductListByCategory(widget.categoryId!);
+      } else if (widget.productModel != null) {
+        Get.find<ProductListController>().setProducts(widget.productModel!);
       }
-      else if (widget.productModel!=null) {
-        Get.find<ProductListController>()
-          .setProducts(widget.productModel!);
-      }
-      
     });
     super.initState();
   }
@@ -36,9 +34,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          'Products',
-          style: TextStyle(color: Colors.black),
+        title:  Text(
+          widget.title,
+          style: const TextStyle(color: Colors.black),
         ),
         elevation: 0,
         leading: const BackButton(
@@ -53,7 +51,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
         }
         if (productListController.productModel.data!.isEmpty) {
           return const Center(
-            child: Text('No product found'),
+            child: Text(
+              'No product found',
+              style: TextStyle(fontSize: 24),
+            ),
           );
         }
         return Padding(

@@ -10,7 +10,7 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text('Review Screen'),
     );
   }
