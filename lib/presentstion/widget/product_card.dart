@@ -71,6 +71,9 @@ class _ProductCardState extends State<ProductCard> {
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.w500),
                         ),
+                        const SizedBox(
+                          width: 2,
+                        ),
                         Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
@@ -88,7 +91,7 @@ class _ProductCardState extends State<ProductCard> {
                                   color: Colors.blueGrey),
                             ),
                             const SizedBox(
-                              width: 14,
+                              width: 6,
                             ),
                             const FavoriteButton()
                           ],
